@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,6 +195,11 @@
     .specialty-card:hover::before { transform: scaleX(1); }
     .specialty-icon {
       font-size: 2.2rem; margin-bottom: 1.4rem;
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .specialty-icon svg {
+      width: 100%; height: 100%;
     }
     .specialty-name {
       font-family: 'Cormorant Garamond', serif;
@@ -376,6 +382,104 @@
       .checkbox-group { grid-template-columns: 1fr; }
     }
 
+    /* ─── GALLERY ─── */
+    #gallery { background: var(--cream); }
+    .gallery-intro {
+      font-size: 0.88rem; color: var(--muted); max-width: 520px;
+      line-height: 1.7; margin-bottom: 3rem; font-weight: 300;
+    }
+    .gallery-grid {
+      columns: 3 280px;
+      column-gap: 1.2rem;
+      margin-top: 3rem;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.2rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(107,26,53,0.55) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s ease;
+      display: flex; align-items: flex-end; padding: 1.2rem;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--cream); font-weight: 300;
+      font-style: italic; letter-spacing: 0.04em;
+    }
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(30,5,18,0.92); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-inner {
+      position: relative; max-width: 90vw; max-height: 90vh;
+    }
+    .lightbox-inner img {
+      max-width: 90vw; max-height: 82vh;
+      object-fit: contain; border-radius: 2px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    }
+    .lightbox-caption {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--cream); font-style: italic;
+      text-align: center; margin-top: 1rem;
+      font-size: 1.1rem; letter-spacing: 0.05em;
+    }
+    .lightbox-close {
+      position: absolute; top: -2.5rem; right: 0;
+      background: none; border: none; color: var(--cream);
+      font-size: 1.6rem; cursor: pointer; line-height: 1;
+      opacity: 0.7; transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,248,250,0.12); border: 1px solid rgba(255,248,250,0.2);
+      color: var(--cream); width: 2.8rem; height: 2.8rem;
+      border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; line-height: 1;
+    }
+    .lightbox-nav:hover { background: rgba(255,248,250,0.22); }
+    .lightbox-prev { left: -4rem; }
+    .lightbox-next { right: -4rem; }
+    /* Upload hint strip */
+    .gallery-hint {
+      margin-top: 2.2rem; padding: 1.2rem 1.6rem;
+      background: var(--warm); border: 1px dashed var(--border);
+      border-radius: 2px; font-size: 0.8rem; color: var(--muted);
+      line-height: 1.6;
+    }
+    .gallery-hint code {
+      background: var(--cream); padding: 0.1em 0.4em; border-radius: 2px;
+      font-family: monospace; font-size: 0.85em; color: var(--choco);
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { columns: 2 200px; }
+      .lightbox-prev { left: -0.8rem; }
+      .lightbox-next { right: -0.8rem; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 1; }
+    }
+
     /* ─── FADE IN ANIMATION ─── */
     .fade-in {
       opacity: 0; transform: translateY(28px);
@@ -400,6 +504,7 @@
     
   </a>
   <ul>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#specialties">Specialties</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#order" class="nav-cta">Order Now</a></li>
@@ -444,27 +549,169 @@
       <p class="specialty-desc">Vibrant, personalised cakes that make every birthday unforgettable. From whimsical toppers to sculpted designs, we bring your vision to life.</p>
     </div>
     <div class="specialty-card">
-      <div class="specialty-icon">🍰</div>
+      <div class="specialty-icon"><svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Balloon 1 -->
+        <ellipse cx="18" cy="22" rx="9" ry="11" fill="#F4A7C0"/>
+        <line x1="18" y1="33" x2="20" y2="48" stroke="#C94E7A" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Balloon 2 -->
+        <ellipse cx="30" cy="18" rx="9" ry="11" fill="#C94E7A"/>
+        <line x1="30" y1="29" x2="28" y2="48" stroke="#8B2550" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Balloon 3 -->
+        <ellipse cx="42" cy="22" rx="9" ry="11" fill="#E8A0BB"/>
+        <line x1="42" y1="33" x2="38" y2="48" stroke="#C94E7A" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Star accents -->
+        <path d="M10 10 L11 13 L14 13 L11.5 15 L12.5 18 L10 16 L7.5 18 L8.5 15 L6 13 L9 13 Z" fill="#6B1A35" opacity="0.6"/>
+        <circle cx="46" cy="10" r="2" fill="#6B1A35" opacity="0.5"/>
+        <circle cx="5" cy="26" r="1.5" fill="#C94E7A" opacity="0.4"/>
+      </svg></div>
       <h3 class="specialty-name">Kids Themed Cakes</h3>
       <p class="specialty-desc">Baby showers, anniversaries, graduations — every milestone deserves a cake as special as the moment itself.</p>
     </div>
     <div class="specialty-card">
-      <div class="specialty-icon">🍫</div>
+      <div class="specialty-icon"><svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cake base -->
+        <rect x="8" y="34" width="40" height="14" rx="3" fill="#6B1A35"/>
+        <!-- Middle tier -->
+        <rect x="12" y="22" width="32" height="13" rx="2" fill="#8B2550"/>
+        <!-- Top tier -->
+        <rect x="17" y="13" width="22" height="10" rx="2" fill="#C94E7A"/>
+        <!-- Drips from top tier -->
+        <path d="M20 22 Q19 26 20 29" stroke="#F4A7C0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M25 22 Q23 27 24 31" stroke="#F4A7C0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M31 22 Q32 27 31 31" stroke="#F4A7C0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M36 22 Q37 26 36 29" stroke="#F4A7C0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Drips from middle tier -->
+        <path d="M14 35 Q13 39 14 43" stroke="#E8A0BB" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M22 35 Q21 40 22 44" stroke="#E8A0BB" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M34 35 Q35 40 34 44" stroke="#E8A0BB" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M42 35 Q43 39 42 43" stroke="#E8A0BB" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Cherry on top -->
+        <circle cx="28" cy="10" r="3.5" fill="#C94E7A"/>
+        <path d="M28 10 Q30 7 33 6" stroke="#6B1A35" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg></div>
       <h3 class="specialty-name">Floral &amp; Drip</h3>
       <p class="specialty-desc">Rich chocolate drips, mirror glazes, and velvet finishes — our drip cakes are a showstopper on every dessert table.</p>
     </div>
     <div class="specialty-card">
-      <div class="specialty-icon">🌸</div>
+      <div class="specialty-icon"><svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bottom tier -->
+        <rect x="5" y="36" width="46" height="13" rx="3" fill="#6B1A35"/>
+        <rect x="5" y="33" width="46" height="5" rx="2" fill="#8B2550"/>
+        <!-- Bottom tier frosting swirls -->
+        <path d="M10 33 Q13 29 16 33" stroke="#F4A7C0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M20 33 Q23 29 26 33" stroke="#F4A7C0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M30 33 Q33 29 36 33" stroke="#F4A7C0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M40 33 Q43 29 46 33" stroke="#F4A7C0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- Top tier -->
+        <rect x="13" y="18" width="30" height="13" rx="3" fill="#C94E7A"/>
+        <rect x="13" y="15" width="30" height="5" rx="2" fill="#E8A0BB"/>
+        <!-- Top tier frosting swirls -->
+        <path d="M17 15 Q20 11 23 15" stroke="#FFF8FA" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M26 15 Q29 11 32 15" stroke="#FFF8FA" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M35 15 Q38 11 41 15" stroke="#FFF8FA" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- Candles -->
+        <rect x="21" y="8" width="3" height="8" rx="1" fill="#F4A7C0"/>
+        <rect x="32" y="6" width="3" height="10" rx="1" fill="#E8A0BB"/>
+        <!-- Flames -->
+        <ellipse cx="22.5" cy="7" rx="1.8" ry="2.5" fill="#C94E7A" opacity="0.9"/>
+        <ellipse cx="33.5" cy="5" rx="1.8" ry="2.5" fill="#C94E7A" opacity="0.9"/>
+        <!-- Pearl decorations -->
+        <circle cx="28" cy="26" r="1.5" fill="#FFF8FA" opacity="0.8"/>
+        <circle cx="23" cy="42" r="1.5" fill="#F4A7C0" opacity="0.7"/>
+        <circle cx="33" cy="42" r="1.5" fill="#F4A7C0" opacity="0.7"/>
+      </svg></div>
       <h3 class="specialty-name">Two-tier Cakes</h3>
       <p class="specialty-desc">Edible flowers, sugar blooms, and hand-painted botanicals — for those who want their cake to look as gorgeous as it tastes.</p>
     </div>
     <div class="specialty-card">
-      <div class="specialty-icon">🌸</div>
+      <div class="specialty-icon"><svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cake -->
+        <rect x="8" y="32" width="40" height="16" rx="3" fill="#6B1A35"/>
+        <!-- Smooth fondant top -->
+        <ellipse cx="28" cy="32" rx="20" ry="4" fill="#8B2550"/>
+        <!-- Elegant gold ribbon band -->
+        <rect x="8" y="38" width="40" height="3" fill="#E8A0BB" opacity="0.6"/>
+        <!-- Crown on top -->
+        <path d="M16 28 L16 20 L21 24 L28 16 L35 24 L40 20 L40 28 Z" fill="#C94E7A"/>
+        <path d="M16 28 L40 28 L40 26 L16 26 Z" fill="#8B2550"/>
+        <!-- Crown jewels -->
+        <circle cx="28" cy="20" r="3" fill="#F4A7C0"/>
+        <circle cx="21" cy="24" r="2" fill="#E8A0BB"/>
+        <circle cx="35" cy="24" r="2" fill="#E8A0BB"/>
+        <!-- Diamond sparkles -->
+        <path d="M8 14 L9.5 17 L13 17 L10.2 19 L11.2 22.5 L8 20.5 L4.8 22.5 L5.8 19 L3 17 L6.5 17 Z" fill="#C94E7A" opacity="0.5" transform="scale(0.7) translate(4,2)"/>
+        <path d="M46 8 L47 10.5 L49.5 10.5 L47.5 12 L48.2 14.5 L46 13 L43.8 14.5 L44.5 12 L42.5 10.5 L45 10.5 Z" fill="#E8A0BB" opacity="0.7"/>
+        <!-- Fondant rose on cake -->
+        <circle cx="28" cy="46" r="5" fill="#C94E7A" opacity="0.3"/>
+        <circle cx="28" cy="46" r="3" fill="#C94E7A" opacity="0.5"/>
+        <circle cx="28" cy="46" r="1.5" fill="#C94E7A"/>
+      </svg></div>
       <h3 class="specialty-name">Designer Cakes</h3>
       <p class="specialty-desc">Edible flowers, sugar blooms, and hand-painted botanicals — for those who want their cake to look as gorgeous as it tastes.</p>
     </div>
   </div>
 </section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="section-tag">Our work</div>
+  <h2 class="section-title">Cake <em>Gallery</em></h2>
+  <p class="gallery-intro">
+    Every cake we create is a one-of-a-kind masterpiece. Browse our latest creations below — and get inspired for yours.
+  </p>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- ═══════════════════════════════════════════════════════════════
+         HOW TO ADD YOUR PHOTOS:
+         1. Create a folder called "images" next to index.html in your repo
+         2. Add your cake photos (jpg/png/webp) to that folder
+         3. Copy & paste more <div class="gallery-item"> blocks below,
+            changing the src to match your filename.
+            Example: <img src="images/my-cake.jpg" alt="Birthday cake" data-label="Birthday Cake">
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="images/cake-1.jpg" alt="Custom celebration cake" data-label="Celebration Cake" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Celebration Cake</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="images/cake-2.jpg" alt="Floral birthday cake" data-label="Floral Birthday Cake" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Floral Birthday Cake</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="images/cake-3.jpg" alt="Drip cake design" data-label="Drip Cake" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Drip Cake</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="images/cake-4.jpg" alt="Two-tier wedding cake" data-label="Two-Tier Cake" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Two-Tier Cake</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="images/cake-5.jpg" alt="Kids themed cake" data-label="Kids Themed Cake" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Kids Themed Cake</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="images/cake-6.jpg" alt="Designer cake" data-label="Designer Cake" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Designer Cake</span></div>
+    </div>
+    <!-- Add more gallery items here -->
+  </div>
+
+  <div class="gallery-hint">
+    <strong>📸 To add your photos:</strong> Create an <code>images/</code> folder in the same directory as this <code>index.html</code> file on GitHub, upload your cake photos there, then update the <code>src="images/cake-1.jpg"</code> filenames to match your actual photo names. Add as many <code>&lt;div class="gallery-item"&gt;</code> blocks as you need.
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBackdrop(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8592;</button>
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8594;</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
 
 <div class="divider">✦ ✦ ✦</div>
 
@@ -694,7 +941,67 @@
     observer.observe(el);
   });
 
-  // ── Set min date (7 days notice) ──
+  // ── Gallery Lightbox ──
+  let galleryItems = [];
+  let currentIndex = 0;
+
+  function buildGalleryItems() {
+    galleryItems = Array.from(document.querySelectorAll('.gallery-item'))
+      .filter(item => item.style.display !== 'none')
+      .map(item => ({
+        src: item.querySelector('img').src,
+        label: item.querySelector('img').getAttribute('data-label') || ''
+      }));
+  }
+
+  function openLightbox(el) {
+    buildGalleryItems();
+    const img = el.querySelector('img');
+    const src = img.src;
+    currentIndex = galleryItems.findIndex(g => g.src === src);
+    if (currentIndex === -1) currentIndex = 0;
+    showLightboxImage(currentIndex);
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLightboxImage(i) {
+    const lb = galleryItems[i];
+    document.getElementById('lightboxImg').src = lb.src;
+    document.getElementById('lightboxImg').alt = lb.label;
+    document.getElementById('lightboxCaption').textContent = lb.label;
+    currentIndex = i;
+  }
+
+  function navLightbox(dir) {
+    let next = (currentIndex + dir + galleryItems.length) % galleryItems.length;
+    showLightboxImage(next);
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBackdrop(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+
+  // Also observe gallery items for scroll animation
+  document.querySelectorAll('.gallery-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
   const dateInput = document.getElementById('cake_date');
   const minDate = new Date();
   minDate.setDate(minDate.getDate() + 7);
